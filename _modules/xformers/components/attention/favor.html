@@ -12,7 +12,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>xformers.components.attention.favor | xFormers 0.0.15.dev documentation</title>
+  <title>xformers.components.attention.favor | xFormers 0.0.28 documentation</title>
   
   <script src="../../../../_static/js/ga.js"></script>
   <script src="../../../../_static/js/redirect.js"></script>
@@ -22,7 +22,7 @@
   
   <link rel="canonical" href="https://facebookresearch.github.io/xformers_modules/xformers/components/attention/favor.html" />
   
-  <meta property="og:title" content="xformers.components.attention.favor | xFormers 0.0.15.dev documentation">
+  <meta property="og:title" content="xformers.components.attention.favor | xFormers 0.0.28 documentation">
   <meta name="description" content="API docs for xFormers. xFormers is a PyTorch extension library for composable and optimized Transformer blocks.">
   <meta property="og:description" content="API docs for xFormers. xFormers is a PyTorch extension library for composable and optimized Transformer blocks.">
   <!--<meta property="og:image" content="https://mmf.sh/img/logo.png">-->
@@ -141,10 +141,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../components/index.html">API Reference</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Build models and blocks programatically</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../factory/index.html">Factory</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials and examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/index.html">Tutorials</a></li>
@@ -237,7 +233,7 @@
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">from</span> <span class="nn">torch.cuda.amp</span> <span class="kn">import</span> <span class="n">autocast</span>
+<span class="kn">from</span> <span class="nn">torch.amp</span> <span class="kn">import</span> <span class="n">autocast</span>
 
 <span class="kn">from</span> <span class="nn">xformers.components.attention</span> <span class="kn">import</span> <span class="n">Attention</span><span class="p">,</span> <span class="n">AttentionConfig</span><span class="p">,</span> <span class="n">register_attention</span>
 <span class="kn">from</span> <span class="nn">xformers.components.attention.feature_maps</span> <span class="kn">import</span> <span class="p">(</span>
@@ -278,7 +274,7 @@
         <span class="o">*</span><span class="n">_</span><span class="p">,</span>
         <span class="o">**</span><span class="n">__</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Kernelized attention, as proposed in Performers_</span>
 <span class="sd">        (&quot;Rethinking attention with performers.&quot; K. Choromanski et al. (2020).).</span>
 
@@ -374,7 +370,7 @@
         <span class="n">k_prime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_map</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
         <span class="n">q_prime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_map</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="n">autocast</span><span class="p">(</span><span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">autocast</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="c1"># The softmax kernel approximation for Favor will easily overflow</span>
             <span class="c1"># Force the computations here to stay in fp32 for numerical stability</span>
             <span class="c1"># Note that the dimensions are vastly reduced when compared to scaled_dot_product</span>
